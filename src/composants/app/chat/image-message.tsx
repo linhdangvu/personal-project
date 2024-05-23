@@ -1,3 +1,4 @@
+import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
 interface ImageSMS {
@@ -40,21 +41,7 @@ const ImageMessage = (props: { message: ImageSMS }) => {
                   data-tooltip-target="download-image"
                   className="inline-flex items-center justify-center rounded-full h-10 w-10 bg-white/30 hover:bg-white/50 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50"
                 >
-                  <svg
-                    className="w-5 h-5 text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 16 18"
-                  >
-                    <path
-                      stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3"
-                    />
-                  </svg>
+                  <ArrowDownTrayIcon className="w-6 h-6 text-white" />
                 </button>
                 <div
                   id="download-image"

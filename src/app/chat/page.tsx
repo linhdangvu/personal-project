@@ -40,7 +40,7 @@ const Chat = () => {
 
   return (
     <div className="h-[88vh]">
-      <div className="overflow-auto max-h-[80vh] no-scrollbar">
+      <div className="overflow-auto max-h-[80vh] no-scrollbar py-4">
         <ChatText message={textData} />
         <ChatText message={textData2} />
 

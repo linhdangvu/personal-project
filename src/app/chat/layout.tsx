@@ -10,7 +10,7 @@ export default function RootLayout({
       <div className="h-screen-[10vh]">
         <Menu />
       </div>
-      <div className="w-full h-screen-[90vh] p-4">{children}</div>
+      <div className="w-full h-screen-[90vh] px-4">{children}</div>
     </div>
   );
 }
