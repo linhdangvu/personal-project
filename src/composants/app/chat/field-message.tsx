@@ -4,7 +4,7 @@ import { PhotoIcon } from "@heroicons/react/24/outline";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import React, { useEffect, useRef, useState } from "react";
 
-const FieldMessage = () => {
+const FieldMessage = (props: any) => {
   const textareaRef: any = useRef(null);
   const [text, setText] = useState("");
 
@@ -12,6 +12,11 @@ const FieldMessage = () => {
     setText(e.target.value);
   };
 
+  const handleSend = (e:any) => {
+    e.preventDefault();
+    props.sendMesage(text)
+  }
+  
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
@@ -44,11 +49,11 @@ const FieldMessage = () => {
             placeholder="Your message..."
           ></textarea>
           <button
-            type="submit"
+            onClick={(e) => handleSend(e)}
             className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"
           >
             <PaperAirplaneIcon className="text-white h-6 w-6" />
-            <span className="sr-only">Send message</span>
+            <span className="sr-only" >Send message</span>
           </button>
         </div>
       </form>
