@@ -1,7 +1,11 @@
+import { deleteFirebaseData } from "@/api/firebaseAPI";
+import { useFirebase } from "@/hooks/useFirebase";
 import { useDatetime } from "@/services/datetime";
+import { TrashIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
 interface Text {
+  id: string;
   sender: string;
   createdTime: any;
   text: string;
@@ -10,6 +14,12 @@ interface Text {
 
 const Text = (props: { message: Text }) => {
   const datetime = useDatetime();
+  const useFB = useFirebase();
+
+  const handleDelete = async () => {
+    console.log(props.message.id);
+    await useFB.deleteMessage(props.message.id);
+  };
 
   return (
     <div>
@@ -47,6 +57,10 @@ const Text = (props: { message: Text }) => {
             </span>
           </div>
           {/* <span className="text-sm font-normal text-black">Loading...</span> */}
+        </div>
+
+        <div className="p-2 rounded-full cursor-pointer text-red-500 hover:text-white hover:bg-red-500 ">
+          <TrashIcon className="w-6 h-6 " onClick={handleDelete} />
         </div>
       </div>
     </div>

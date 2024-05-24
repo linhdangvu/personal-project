@@ -39,11 +39,10 @@ export const addFirebaseData = async (
 
 // Delele
 export const deleteFirebaseData = async (
-  nameCollection: string,
-  id: string
+  nameCollection: string, ...args: any
 ) => {
   try {
-    await deleteDoc(doc(db, nameCollection, id));
+    await deleteDoc(doc(db, nameCollection,...args));
   } catch (e) {
     console.error("Error delete document: ", e);
   }

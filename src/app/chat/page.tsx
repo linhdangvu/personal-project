@@ -1,51 +1,30 @@
 "use client";
 
-import { addFirebaseData, getFirebaseData } from "@/api/firebaseAPI";
+import { addFirebaseData } from "@/api/firebaseAPI";
 import FieldMessage from "@/composants/app/chat/field-message";
-import ImageMessage from "@/composants/app/chat/image-message";
 import ChatText from "@/composants/app/chat/text";
-import SkeletonLoader from "@/composants/base/loading/skeleton-loader";
+import { useFirebase } from "@/hooks/useFirebase";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Timestamp } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-
-const fetchSMS = async () => {
-  const response = await getFirebaseData("ChatBot", "Text-to-Text", "OpenAI");
-  console.log(response);
-  return response;
-};
+import React, { useState } from "react";
 
 const Chat = () => {
-  const [loading, setLoading] = useState(true);
-
-  const query = useQuery({
-    queryKey: ["sms"],
-    queryFn: fetchSMS,
-  });
+  const firebaseApi = useFirebase();
 
   const handleSend = async (text: string) => {
-    console.log(text);
     //send to Firestore
-    await addFirebaseData(
-      "ChatBot",
-      {
-        sender: "self",
-        createdTime: Timestamp.fromDate(new Date()),
-        text: text,
-        avatar: "images/chat-icon/bot-text-icon.png",
-      },
-      "Text-to-Text",
-      "OpenAI"
-    );
-    query.refetch();
+    await firebaseApi.addMessage(text);
   };
 
-  if (query.isLoading) {
+  const handleDelete = () => {
+    // firebaseApi.queryFirebase.refetch();
+  };
+
+  if (firebaseApi.queryFirebase.isLoading) {
     return <h1>Loading...</h1>;
   }
 
-  if (query.isError) {
+  if (firebaseApi.queryFirebase.isError) {
     return <h1>Error...</h1>;
   }
 
@@ -53,9 +32,9 @@ const Chat = () => {
     <div className="h-[88vh]">
       {/* <h1>{books.title}</h1> */}
       <div className="overflow-auto max-h-[80vh] no-scrollbar py-4">
-        {query.data &&
-          query.data.map((m: any, index: number) => (
-            <ChatText message={m} key={index} />
+        {firebaseApi.queryFirebase.data &&
+          firebaseApi.queryFirebase.data.map((m: any, index: number) => (
+            <ChatText message={m} key={index} updateDelete={handleDelete} />
           ))}
         {/* {messages.map((sms: any, index: number) => (
           <ChatText message={sms} key={index} />
