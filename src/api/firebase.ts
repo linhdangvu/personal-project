@@ -1,4 +1,4 @@
-import { db } from "@/services/firebase";
+import { db } from "@/services/firebase-setting";
 import {
   addDoc,
   collection,
@@ -39,10 +39,11 @@ export const addFirebaseData = async (
 
 // Delele
 export const deleteFirebaseData = async (
-  nameCollection: string, ...args: any
+  nameCollection: string,
+  ...args: any
 ) => {
   try {
-    await deleteDoc(doc(db, nameCollection,...args));
+    await deleteDoc(doc(db, nameCollection, ...args));
   } catch (e) {
     console.error("Error delete document: ", e);
   }

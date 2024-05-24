@@ -2,20 +2,16 @@ import {
   addFirebaseData,
   deleteFirebaseData,
   getFirebaseData,
-} from "@/api/firebaseAPI";
+} from "@/api/firebase";
+import { useOpenAi } from "@/api/openai";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Timestamp } from "firebase/firestore";
 
-const openAIKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
-if (!openAIKey) {
-  throw new Error("OPENAI_API_KEY not define");
-}
-
 export const useChatbot = () => {
+  const openai = useOpenAi();
+
   const fetchSMS = async () => {
     const response = await getFirebaseData("ChatBot", "Text-to-Text", "OpenAI");
-    console.log(response);
     return response;
   };
 
@@ -23,24 +19,6 @@ export const useChatbot = () => {
     queryKey: ["sms"],
     queryFn: fetchSMS,
   });
-
-  const sendOpenAi = async (text: string) => {
-    const response = await axios.post(
-      "https://api.openai.com/v1/chat/completions",
-      {
-        model: "babbage-002",
-        messages: [{ role: "user", content: text }],
-        temperature: 0.7,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${openAIKey}`,
-        },
-      }
-    );
-    return response.data.choices[0].message.content;
-  };
 
   const addMessage = async (text: string) => {
     await addFirebaseData(
@@ -58,7 +36,7 @@ export const useChatbot = () => {
 
     // sent to OpenAI
     try {
-      const result_openai = await sendOpenAi(text);
+      const result_openai = await openai.textToText(text);
       await addFirebaseData(
         "ChatBot",
         {
