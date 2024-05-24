@@ -1,5 +1,4 @@
-import { deleteFirebaseData } from "@/api/firebaseAPI";
-import { useFirebase } from "@/hooks/useFirebase";
+import { useChatbot } from "@/hooks/useChatbot";
 import { useDatetime } from "@/services/datetime";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import React from "react";
@@ -14,11 +13,11 @@ interface Text {
 
 const Text = (props: { message: Text }) => {
   const datetime = useDatetime();
-  const useFB = useFirebase();
+  const chatbot = useChatbot();
 
   const handleDelete = async () => {
     console.log(props.message.id);
-    await useFB.deleteMessage(props.message.id);
+    await chatbot.deleteMessage(props.message.id);
   };
 
   return (

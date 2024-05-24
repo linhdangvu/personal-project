@@ -1,30 +1,24 @@
 "use client";
 
-import { addFirebaseData } from "@/api/firebaseAPI";
 import FieldMessage from "@/composants/app/chat/field-message";
 import ChatText from "@/composants/app/chat/text";
-import { useFirebase } from "@/hooks/useFirebase";
+import { useChatbot } from "@/hooks/useChatbot";
 import { useQuery } from "@tanstack/react-query";
-import { Timestamp } from "firebase/firestore";
-import React, { useState } from "react";
+import React from "react";
 
 const Chat = () => {
-  const firebaseApi = useFirebase();
+  const chatbot = useChatbot();
 
   const handleSend = async (text: string) => {
     //send to Firestore
-    await firebaseApi.addMessage(text);
+    await chatbot.addMessage(text);
   };
 
-  const handleDelete = () => {
-    // firebaseApi.queryFirebase.refetch();
-  };
-
-  if (firebaseApi.queryFirebase.isLoading) {
+  if (chatbot.queryChatbot.isLoading) {
     return <h1>Loading...</h1>;
   }
 
-  if (firebaseApi.queryFirebase.isError) {
+  if (chatbot.queryChatbot.isError) {
     return <h1>Error...</h1>;
   }
 
@@ -32,9 +26,9 @@ const Chat = () => {
     <div className="h-[88vh]">
       {/* <h1>{books.title}</h1> */}
       <div className="overflow-auto max-h-[80vh] no-scrollbar py-4">
-        {firebaseApi.queryFirebase.data &&
-          firebaseApi.queryFirebase.data.map((m: any, index: number) => (
-            <ChatText message={m} key={index} updateDelete={handleDelete} />
+        {chatbot.queryChatbot.data &&
+          chatbot.queryChatbot.data.map((m: any, index: number) => (
+            <ChatText message={m} key={index} />
           ))}
         {/* {messages.map((sms: any, index: number) => (
           <ChatText message={sms} key={index} />
