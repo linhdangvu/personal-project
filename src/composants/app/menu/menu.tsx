@@ -19,6 +19,14 @@ const Menu = () => {
             </span>
           </a>
           <div>
+            <span
+              className="border-black border-2 bg-blue-50 px-4 py-2 rounded-full text-base 
+             text-black"
+            >
+              Text-to-Text
+            </span>
+          </div>
+          <div>
             <Bars3Icon className="w-10 h-10 text-white" />
           </div>
         </div>

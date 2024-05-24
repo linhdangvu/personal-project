@@ -12,11 +12,18 @@ const FieldMessage = (props: any) => {
     setText(e.target.value);
   };
 
-  const handleSend = (e:any) => {
+  const handleKeyDown = (e: any) => {
+    if (e.keyCode === 13 && !e.shiftKey) {
+      handleSend(e);
+    }
+  };
+
+  const handleSend = (e: any) => {
     e.preventDefault();
-    props.sendMesage(text)
-  }
-  
+    props.sendMesage(text);
+    setText("");
+  };
+
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
@@ -45,6 +52,7 @@ const FieldMessage = (props: any) => {
             id="chat"
             value={text}
             onChange={handleChange}
+            onKeyDown={handleKeyDown}
             className="block mx-4 p-2.5 w-full text-sm text-black bg-blue-100 rounded-lg border  focus:ring-blue-500 focus:border-blue-500  border-gray-600 placeholder-gray-500 overflow-hidden resize-none"
             placeholder="Your message..."
           ></textarea>
@@ -53,7 +61,7 @@ const FieldMessage = (props: any) => {
             className="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"
           >
             <PaperAirplaneIcon className="text-white h-6 w-6" />
-            <span className="sr-only" >Send message</span>
+            <span className="sr-only">Send message</span>
           </button>
         </div>
       </form>

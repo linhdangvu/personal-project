@@ -1,13 +1,16 @@
+import { useDatetime } from "@/services/datetime";
 import React from "react";
 
 interface Text {
   sender: string;
-  createdTime: string;
+  createdTime: any;
   text: string;
   avatar: string;
 }
 
 const Text = (props: { message: Text }) => {
+  const datetime = useDatetime();
+
   return (
     <div>
       <div
@@ -40,7 +43,7 @@ const Text = (props: { message: Text }) => {
             }
           >
             <span className=" text-sm font-normal text-black">
-              {props.message.createdTime}
+              {datetime.convertFirebaseDate(props.message.createdTime)}
             </span>
           </div>
           {/* <span className="text-sm font-normal text-black">Loading...</span> */}
