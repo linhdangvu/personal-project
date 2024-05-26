@@ -3,7 +3,7 @@
 import FieldMessage from "@/composants/app/chat/field-message";
 import ChatText from "@/composants/app/chat/text";
 import { useChatbot } from "@/hooks/useChatbot";
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const Chat = () => {
