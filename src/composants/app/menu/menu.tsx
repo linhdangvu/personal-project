@@ -1,10 +1,17 @@
-import {
-  ChevronUpDownIcon,
-  ChatBubbleBottomCenterTextIcon,
-} from "@heroicons/react/24/outline";
-import React from "react";
+"use client";
+
+import Dropdown from "@/composants/base/dropdown/dropdown-model";
+import { ModelContext } from "@/context/chat-context";
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
+import React, { useContext } from "react";
 
 const Menu = () => {
+  const modelContext = useContext(ModelContext);
+
+  const handleDropdown = (item: any) => {
+    modelContext.setNameModel(item.title);
+  };
+
   return (
     <div>
       <nav className=" border-blue-900 bg-blue-950">
@@ -20,12 +27,10 @@ const Menu = () => {
           </a>
 
           <div className="">
-            <button className="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                Text-to-Text
-              </span>
-              <ChevronUpDownIcon className="w-4 h-4 m-1" />
-            </button>
+            <Dropdown
+              dropdownContent={modelContext.modelList}
+              handleDropdownData={handleDropdown}
+            />
           </div>
         </div>
       </nav>

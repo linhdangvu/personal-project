@@ -1,7 +1,10 @@
-import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import { useChatbot } from "@/hooks/useChatbot";
+import { useDatetime } from "@/services/datetime";
+import { ArrowDownTrayIcon, TrashIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
 interface ImageSMS {
+  id: string;
   sender: string;
   createdTime: string;
   image: string;
@@ -10,6 +13,14 @@ interface ImageSMS {
 }
 
 const ImageMessage = (props: { message: ImageSMS }) => {
+  const datetime = useDatetime();
+  const chatbot = useChatbot();
+
+  const handleDelete = async () => {
+    console.log(props.message.id);
+    await chatbot.deleteMessage(props.message.id);
+  };
+
   return (
     <div>
       <div
@@ -32,9 +43,11 @@ const ImageMessage = (props: { message: ImageSMS }) => {
                 : "rounded-tr-xl")
             }
           >
-            <p className="text-sm font-normal text-white">
-              {props.message.text}
-            </p>
+            {props.message.text !== "" && (
+              <p className="text-sm font-normal text-white">
+                {props.message.text}
+              </p>
+            )}
             <div className="group relative my-2.5">
               <div className="absolute w-full h-full bg-gray-900/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex items-center justify-center">
                 <button
@@ -61,9 +74,12 @@ const ImageMessage = (props: { message: ImageSMS }) => {
             }
           >
             <span className="text-sm font-normal text-black">
-              {props.message.createdTime}
+              {datetime.convertFirebaseDate(props.message.createdTime)}
             </span>
           </div>
+        </div>
+        <div className="p-2 rounded-full cursor-pointer text-red-500 hover:text-white hover:bg-red-500 ">
+          <TrashIcon className="w-6 h-6 " onClick={handleDelete} />
         </div>
       </div>
     </div>

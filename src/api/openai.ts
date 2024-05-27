@@ -8,7 +8,7 @@ export const useOpenAi = () => {
     throw new Error("OPENAI_API_KEY not define");
   }
 
-  // model text-to-text babbage-002
+  // model text-to-text
   const textToText = async (text: string) => {
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
@@ -27,5 +27,24 @@ export const useOpenAi = () => {
     return response.data.choices[0].message.content;
   };
 
-  return { textToText };
+  const textToImage = async (text: string) => {
+    const response = await axios.post(
+      "https://api.openai.com/v1/images/generations",
+      {
+        model: "dall-e-2",
+        prompt: text,
+        n: 1,
+        size: "256x256",
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${openAIKey}`,
+        },
+      }
+    );
+    return response.data.data[0].url;
+  };
+
+  return { textToText, textToImage };
 };

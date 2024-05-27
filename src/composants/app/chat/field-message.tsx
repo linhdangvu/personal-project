@@ -1,12 +1,14 @@
 "use client";
 
+import { ModelContext } from "@/context/chat-context";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
 const FieldMessage = (props: any) => {
   const textareaRef: any = useRef(null);
   const [text, setText] = useState("");
+  const modelContext = useContext(ModelContext);
 
   const handleChange = (e: any) => {
     setText(e.target.value);
@@ -37,15 +39,18 @@ const FieldMessage = (props: any) => {
         <label htmlFor="chat" className="sr-only">
           Your message
         </label>
-        <div className="flex items-center px-3 py-2 rounded-lg bg-blue-600">
-          <button
-            type="button"
-            className="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
-          >
-            <PhotoIcon className="text-white h-6 w-6" />
 
-            <span className="sr-only">Upload image</span>
-          </button>
+        <div className="flex items-center px-3 py-2 rounded-lg bg-blue-600">
+          {modelContext.nameModel === "Image-to-Text" && (
+            <button
+              type="button"
+              className="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+            >
+              <PhotoIcon className="text-white h-6 w-6" />
+
+              <span className="sr-only">Upload image</span>
+            </button>
+          )}
 
           <textarea
             ref={textareaRef}
