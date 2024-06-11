@@ -1,9 +1,14 @@
+"use client";
+import { ReservationContext } from "@/context/reservation-context";
 import { Bars3Icon, CalendarDaysIcon } from "@heroicons/react/24/outline";
-import React from "react";
 
-const Reservation = () => {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <div>
+    <ReservationContext.Provider value={{}}>
       <button
         type="button"
         className="inline-flex items-center p-2 mt-2 ms-3  text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 border-2"
@@ -15,7 +20,7 @@ const Reservation = () => {
         className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-800">
           <ul className="space-y-2 font-medium">
             <li>
               <a
@@ -30,9 +35,7 @@ const Reservation = () => {
         </div>
       </aside>
 
-      <div className="p-4 sm:ml-64"></div>
-    </div>
+      <div className="p-4 sm:ml-64">{children}</div>
+    </ReservationContext.Provider>
   );
-};
-
-export default Reservation;
+}
