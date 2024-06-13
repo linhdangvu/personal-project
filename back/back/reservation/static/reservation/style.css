@@ -1,0 +1,48 @@
+.meeting-table  {
+    margin: 10px auto;
+    border-collapse: collapse;
+    overflow-x: auto;
+    
+  width: 100%;
+}
+
+.meeting-table th {
+    border: solid 1px black;
+    padding: 5px 10px;
+}
+
+.meeting-table td {
+    border: solid 1px black;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.reservation-form {
+    border: solid 1px black;
+    padding: 20px
+}
+
+.reservation-form div{
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    /* width: 50%; */
+
+}
+
+.reservation-form label{
+    font-size: 22px;
+    font-weight: 700;
+   
+}
+
+.reservation-form input{
+    font-size: 15px;
+   width: 80%;
+}
+
+.btn-create {
+    padding: 5px 10px;
+    margin-top: 20px;
+}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Reservation</h1>
+
+<!-- <form action="/reservation/create/" method="post">
+    {% csrf_token %}
+    <div class="reservation-form">
+        <label for="reservation_title">Title </label>
+        <input id="reservation_title" type="text" name="title" value="{{ current_name }}">
+    </div>
+
+    <div class="reservation-form">
+        <label for="reservation_motif">Motif </label>
+        <input id="reservation_motif" type="text" name="reservation_motif" value="{{ current_name }}">
+    </div>
+   
+    <input class="btn-create" type="submit" name="create" value="Create">
+</form> -->
+
+<form ction="/reservation/" method="post" class="reservation-form">
+    {% csrf_token %}
+    {% for f in form %}
+       <div>{{ f }}</div> 
+
+        {% endfor %}
+        <button class="btn-create" type="submit" name="create">Create</button>
+</form>
+
+
+
+
+<table class="meeting-table">
+    <thead>
+        <th>Title</th>
+        <th>Motif</th>
+        <th>Client</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Moment</th>
+        <th>Date</th>
+        <th>Duration</th>
+    </thead>
+  
+<tbody>
+    {% for m in meeting %}
+    <tr>
+       <td>{{m.title}}</td>
+       <td>{{m.motif}}</td>
+       <td>{{m.client}}</td>
+       <td>{{m.description}}</td>
+       <td>{{m.type}}</td>
+       <td>{{m.moment}}</td>
+       <td>{{m.date}}</td>
+       <td>{{m.duration}}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+{% endblock %}
