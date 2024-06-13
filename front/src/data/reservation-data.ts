@@ -96,3 +96,30 @@ export const btnData = [
     }
  
   ]
+
+  export  const avocatData = [
+    {
+      id: 1,
+      fonction: "Fonction de l'avocat",
+      name: "Paris France",
+      addresse: "Address de l'avocat",
+      avartar: "",
+      verified: true,
+    },
+    {
+      id: 2,
+      fonction: "Fonction de l'avocat",
+      name: "JBean Boe",
+      addresse: "Address de l'avocat",
+      avartar: "",
+      verified: false,
+    },
+    {
+      id: 3,
+      fonction: "Fonction de l'avocat",
+      name: "Dean Doe",
+      addresse: "Address de l'avocat",
+      avartar: "",
+      verified: true,
+    },
+  ];
