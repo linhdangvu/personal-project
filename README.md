@@ -1,4 +1,5 @@
 Personal Project
+**Technologies**: ReactJS, NextJS, Tailwind CSS, TypeScript, OpenAI, Firebase
 
 # Front:
 
@@ -8,7 +9,7 @@ Personal Project
 
 # Back:
 
-1. Modelisation pour reservation
+1. Modelisation pour reservation (en cours)
 
 ##### Run code
 
