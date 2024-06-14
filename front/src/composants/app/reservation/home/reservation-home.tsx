@@ -1,10 +1,12 @@
 import Search from "@/composants/base/search/search";
 import { avocatData } from "@/data/reservation-data";
 import { CheckBadgeIcon, MapPinIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ReservationHome = () => {
   const [filteredDara, setFilteredData] = useState(avocatData);
+  const [searchData, setSearchData] = useState(avocatData);
+  const [isAccepted, setAccepted] = useState(false);
 
   const tagSuggestion =
     "px-3 py-1 text-white font-semibold text-sm bg-gray-500 mr-2 rounded-full";
@@ -13,6 +15,7 @@ const ReservationHome = () => {
     console.log(val);
     if (val == "") {
       setFilteredData(avocatData);
+      setSearchData(avocatData);
     } else {
       const ndata = avocatData.filter((item: any) => {
         return (
@@ -21,10 +24,20 @@ const ReservationHome = () => {
           item.addresse.match(new RegExp(val, "i"))
         );
       });
-      console.log(ndata);
+      setSearchData(ndata);
       setFilteredData(ndata);
     }
   };
+
+  useEffect(() => {
+    console.log(isAccepted);
+    if (isAccepted) {
+      const ndata = filteredDara.filter((item) => item.acceptedRdv == true);
+      setFilteredData(ndata);
+    } else {
+      setFilteredData(searchData);
+    }
+  }, [isAccepted]);
 
   return (
     <div>
@@ -35,7 +48,7 @@ const ReservationHome = () => {
           <Search handleSearch={getSearch} />
 
           <div className="flex flex-wrap gap-2 mt-2">
-            <span className="font-semibold">Suggérés: </span>
+            <span className="font-semibold">Suggérés:</span>
             <span className={tagSuggestion}>Notaires</span>
             <span className={tagSuggestion}>Commissaires de justice</span>
             <span className={tagSuggestion}>Avocats</span>
@@ -44,7 +57,14 @@ const ReservationHome = () => {
 
         <div className="flex flex-col items-end w-[30%]">
           <label className="inline-flex items-center cursor-pointer mb-2">
-            <input type="checkbox" value="" className="sr-only peer"></input>
+            <input
+              type="checkbox"
+              checked={isAccepted}
+              onChange={() => {
+                setAccepted(!isAccepted);
+              }}
+              className="sr-only peer"
+            ></input>
             <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-100 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-green-400"></div>
             <span className="ms-3 text-sm text-black ">Accepte les RDV</span>
           </label>

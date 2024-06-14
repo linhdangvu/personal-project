@@ -105,6 +105,7 @@ export const btnData = [
       addresse: "Address de l'avocat",
       avartar: "",
       verified: true,
+      acceptedRdv: true
     },
     {
       id: 2,
@@ -112,7 +113,7 @@ export const btnData = [
       name: "JBean Boe",
       addresse: "Address de l'avocat",
       avartar: "",
-      verified: false,
+      verified: false,acceptedRdv: true
     },
     {
       id: 3,
@@ -120,6 +121,6 @@ export const btnData = [
       name: "Dean Doe",
       addresse: "Address de l'avocat",
       avartar: "",
-      verified: true,
+      verified: true,acceptedRdv: false
     },
   ];
